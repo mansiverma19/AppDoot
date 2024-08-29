@@ -463,6 +463,7 @@ button[type="submit"]:hover {
     background-repeat: no-repeat; 
     background-position: center; 
     width: 100%; 
+}
 
 #img-view img {
     max-width: 100%;
@@ -488,6 +489,7 @@ button[type="submit"]:hover {
 .row {
     display: flex;
     flex-direction: column; 
+}
 
 .col-lg-4, .col-md-6 {
     max-width: 100%; 

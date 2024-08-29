@@ -24,8 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)+tkmqe1zme^lc9sh5@x97s12(3@3%m01-985x_+p^00#y*lai'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
+DEBUG = True
+BASE_URL = 'http://127.0.0.1:8000/'
+# BASE_URL = 'https:/dheeraj19.pythonanywhere.com/'
 ALLOWED_HOSTS = ['*']
 
 
@@ -135,6 +137,4 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # for accessing the logo images from app_logos
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join('AppDoot', 'media')
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'media').replace('\\','/')

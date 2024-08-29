@@ -38,7 +38,7 @@ def register(request):
                     "password": password,
                     "email": email
         }
-        response = requests.post('http://127.0.0.1:8000/api/v1/users/', data=data)
+        response = requests.post(settings.BASE_URL+'api/v1/users/', data=data)
         if response.status_code == 201:
             print("----------success---------------")
             return redirect('login')
@@ -55,7 +55,7 @@ def loginUser(request):
             "username": username,
             "password": password
         }
-        response = requests.post('http://127.0.0.1:8000/api/v1/users/login/', json=data)
+        response = requests.post(settings.BASE_URL+'api/v1/users/login/', json=data)
         
         if response.status_code == 200:
             user = authenticate(username=username, password=password)
@@ -78,7 +78,7 @@ def loginUser(request):
 
 def logout_view(request):
     # Send POST request to API to logout the user
-    response = requests.post('http://127.0.0.1:8000/api/v1/users/logout/')
+    response = requests.post(settings.BASE_URL+'api/v1/users/logout/')
     if response.status_code == 200:
         django_logout(request)  # Log out the user from the Django session
     return redirect('home')
