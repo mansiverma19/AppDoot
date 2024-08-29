@@ -1,0 +1,56 @@
+{% extends 'user/base1.html' %}
+{% load static %}
+{% block title %}Pending Tasks{% endblock %}
+
+{% block content %}
+<div class="admin-tasks-container">
+    <h2>Pending Tasks</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>User</th>
+                <th>App</th>
+                <th>Screenshot</th>
+                <th>Points Earned</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.user.username }}</td>
+                <td>{{ task.app.name }}</td>
+                <td>
+                    {% if task.screenshot %}
+                        {% with task.screenshot.url|slice:"6:" as screenshot_path %}
+                            <a href="{% static screenshot_path %}" target="_blank">
+                                <img src="{% static screenshot_path %}" alt="Screenshot" width="100" style="cursor: pointer;">
+                            </a>
+                        {% endwith %}
+                    {% else %}
+                        No Screenshot
+                    {% endif %}
+                </td>
+                <td>{{ task.points_earned }}</td>
+                <td>
+                    {% if not task.is_completed %}
+                        <form action="{% url 'accept_task' task.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Accept</button>
+                        </form>
+                    {% else %}
+                        Accepted
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No pending tasks</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'user/base1.html' %}
+{% load static%}
+
+{% block content %}
+<div class="list_apps_container">
+    <h1 class="my-4">App List</h1>
+    
+    <div class="row">
+        {% for app in all_apps %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="{{ app.url }}">
+                    <img class="card-img-top" src="{% static app.logo.name %}" alt="{{ app.name }} Logo">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="{{ app.url }}">{{ app.name }}</a>
+                    </h4>
+                    <h5>{{ app.category }} - {{ app.sub_category }}</h5>
+                    <p class="card-text">Points: {{ app.points }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ app.url }}" class="btn btn-primary">Visit App</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not all_apps %}
+    <p>No apps found.</p>
+    {% endif %}
+</div>
+{% endblock %}

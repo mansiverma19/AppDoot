@@ -1,0 +1,33 @@
+{% extends 'user/base1.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+
+    <!-- Admin Cards -->
+    <div class="admin-cards">
+        <!-- Card 1 -->
+        <div class="admin-card">
+            <img src="{% static 'images/add_apps.jpg' %}" alt="Add Apps" class="admin-card-img">
+            <h3>Add New Applications</h3>
+            <p>Manage and add new apps to the platform easily.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="admin-card">
+            <img src="{% static 'images/pending_tasks.jpg' %}" alt="Pending Tasks" class="admin-card-img">
+            <h3>Pending Tasks</h3>
+            <p>Review and manage pending tasks, including user verifications and approvals.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="admin-card">
+            <img src="{% static 'images/manage_users.png' %}" alt="Manage Users" class="admin-card-img">
+            <h3>Manage Users</h3>
+            <p>Verify users, approve screenshots, and ensure a smooth user experience.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

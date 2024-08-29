@@ -1,0 +1,16 @@
+{% extends 'user/base1.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Signup</h2>
+    <form action="{% url 'signup_submit' %}" method="post" class='form-content'>
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Signup</button>
+    </form>
+</div>
+{% endblock %}

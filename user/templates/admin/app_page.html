@@ -1,0 +1,64 @@
+{% extends 'user/base1.html' %}
+{% load static %}
+
+{% block title %}App Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1><b>App Details</b></h1>
+    
+    <div class="app-details">
+        <img src="{% static app.logo.name %}" alt="{{ app.name }} Logo" class="app-logo">
+        <div class="app-specific-details">
+            <h2>{{ app.name }}</h2>
+            <p><strong>URL:</strong> <a href="{{ app.url }}" target="_blank">{{ app.url }}</a></p>
+            <p><strong>Category:</strong> {{ app.category }}</p>
+            <p><strong>Sub-category:</strong> {{ app.sub_category }}</p>
+            <p><strong>Points:</strong> {{ app.points }}</p>
+        </div>
+    </div>
+    <br>
+    <h1><b>Upload Screenshot</b></h1>
+    <form id="upload-form" method="post" enctype="multipart/form-data" action="{% url 'upload_screenshot' app.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="screenshot-field" id="drop-area">
+                <input type="file" accept="image/*" id="screenshot-field" name="screenshot-field" hidden>
+                <div id="img-view">
+                    <img src="{% static 'images/upload.png' %}" alt="Upload Icon">
+                    <p>Drag and drop<br>to upload screenshot of Apps</p>
+                    <span>Upload screenshot as proof</span>
+                </div>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Screenshot</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const dropArea = document.getElementById('drop-area');
+    const inputFile = document.getElementById('screenshot-field');
+    const imageView = document.getElementById('img-view');
+
+    inputFile.addEventListener("change",uploadImage);
+
+    function uploadImage() {
+        let imgLink = URL.createObjectURL(inputFile.files[0]);
+        imageView.style.backgroundImage = 'url(' + imgLink + ')';  // Corrected syntax
+        imageView.textContent = "";  // Clear text content
+        imageView.style.border = 0;  // Remove border
+    }    
+
+    dropArea.addEventListener('dragover',function(e){
+        e.preventDefault();
+    });
+
+    dropArea.addEventListener('drop',function(e){
+        e.preventDefault();
+        inputFile.files = e.dataTransfer.files;
+        uploadImage();
+    });
+</script>
+{% endblock %}

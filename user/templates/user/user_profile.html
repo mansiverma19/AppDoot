@@ -1,0 +1,40 @@
+{% extends 'user/base1.html' %}
+{% load static %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="profile-page-container">
+    <!-- Left Side: User Profile Details -->
+    <div class="profile-details">
+        <div class="avatar">
+            <span class="avatar-initial">{{ user.username|slice:":1" }}</span>
+        </div>
+        <div class="user-info">
+            <h2>{{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
+            <p>Total Points: {{ user.profile.total_points }}</p>
+            <div class="task-stats">
+                <p class="completed-task-count">Completed Tasks: {{ count.completed }}</p>
+                <p class="pending-task-count">Pending Tasks: {{ count.pending }}</p>
+                <p class="incomplete-task-count">Incomplete Tasks: {{ count.incompleted }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side: Completed Tasks -->
+    <div class="completed-tasks">
+        <h3>Completed Tasks</h3>
+        {% for task in completed_tasks %}
+            <div class="task-card-user">
+                <img src="{% static task.app.logo.name %}" alt="{{ task.app.name }}" class="task-logo">
+                <h4>{{ task.app.name }}</h4>
+                <p>Points: {{ task.points_earned }}</p>
+                <p>Status: Completed</p>
+            </div>
+        {% empty %}
+            <p>No completed tasks.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

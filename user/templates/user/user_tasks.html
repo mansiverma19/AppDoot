@@ -1,0 +1,68 @@
+{% extends 'user/base1.html' %}
+{% load static %}
+{% block title %}User Tasks{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>User Tasks</h1>
+    
+    <!-- Completed Tasks Section -->
+    <section class="task-section">
+        <h2>Completed Tasks</h2>
+        <div class="task-grid">
+            {% for task in completed_tasks %}
+            <div class="task-card">
+                <img src="{% static task.app.logo.name %}" alt="{{ task.app.name }}" class="task-logo">
+                <h3>{{ task.app.name }}</h3>
+                <p>Points: {{ task.points_earned }}</p>
+                <p>Status: Completed</p>
+            </div>
+            {% empty %}
+            <p>No completed tasks.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Pending Tasks Section -->
+    <section class="task-section">
+        <h2>Pending Tasks</h2>
+        <div class="task-grid">
+            {% for task in pending_tasks %}
+            <div class="task-card">
+                <img src="{% static task.app.logo.name %}" alt="{{ task.app.name }} Logo" class="task-logo">
+                <h3>{{ task.app.name }}</h3>
+                <p>Points: {{ task.points_earned }}</p>
+                <p>Status: Pending</p>
+            </div>
+            {% empty %}
+            <p>No pending tasks.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Uncompleted Tasks Section -->
+    <section class="task-section">
+        <h2>Incompleted Tasks</h2>
+        <div class="task-grid">
+            {% for app in uncompleted_apps %}
+            <div class="task-card">
+                <img src="{% static app.logo.name %}" alt="{{ app.name }}" class="task-logo">
+                <div class="task-details">
+                    <h3>{{ app.name }}</h3>
+                    <p>Points: {{ app.points }}</p>
+                    <p>Status: Not Started</p>
+                </div>
+                <!-- Form for Install and Complete -->
+                <form method="post" action="{% url 'install_complete' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="app_name" value="{{ app.name }}">
+                    <button type="submit" class="btn btn-primary">Install and Complete</button>
+                </form>
+            </div>
+            {% empty %}
+            <p>No uncompleted tasks.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
